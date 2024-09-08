@@ -4,11 +4,11 @@ install_min:
 	sudo apt-get install gcc g++ cmake make doxygen
 
 install_tests: install_min
-	sudo apt-get install gcovr lcov
+	pip install gcovr==7.0
+	sudo apt-get install lcov
 
-install: install_min install_tests
+install: install_min
 	sudo apt-get install git llvm pkg-config curl zip unzip tar python3-dev clang-format clang-tidy cppcheck iwyu
-	pip install gcovr=7.0
 
 install_pip:
 	pip install jinja2 Pygments cmake-format pre-commit
