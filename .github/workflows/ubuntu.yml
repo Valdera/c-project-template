@@ -18,7 +18,7 @@ jobs:
           make prepare
       - name: Configure
         run: |
-          cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=On
+          cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=On -DENABLE_COV_IGNORE_ERRORS=OFF
       - name: Coverage
         run: |
           cmake --build build --config Debug --target coverage -j4

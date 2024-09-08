@@ -19,7 +19,7 @@ jobs:
           make prepare
       - name: Configure
         run: |
-          cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="Debug"
+          cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="Debug" -DENABLE_COV_IGNORE_ERRORS=OFF
       - name: Building
         run: |
           cmake --build build --config Debug --target docs -j4

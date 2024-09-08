@@ -42,6 +42,9 @@ option(ENABLE_LTO "Enable to add Link Time Optimization." ON)
 option(ENABLE_CLANG_FORMAT "Enable to add clang-format." ON)
 option(ENABLE_CMAKE_FORMAT "Enable to add cmake-format." ON)
 
+# Disable this on gcov <= 13
+option(ENABLE_COV_IGNORE_ERRORS "Enable LCOV ignore errors arguments." ON)
+
 #################
 # CMake Modules #
 #################
