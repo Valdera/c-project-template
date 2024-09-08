@@ -181,7 +181,7 @@ function(setup_target_for_coverage_lcov)
             COMMAND ${LCOV_PATH} ${Coverage_LCOV_ARGS} --gcov-tool ${GCOV_PATH} --ignore-errors unused,mismatch -c
             -i -d . -b ${BASEDIR} -o ${Coverage_NAME}.base
             # Run tests
-            COMMAND ${Coverage_EXECUTABLE} ${Coverage_EXECUTABLE_ARGS} --ignore-errors unused,mismatch
+            COMMAND ${Coverage_EXECUTABLE} ${Coverage_EXECUTABLE_ARGS}
             # Capturing lcov counters and generating report
             COMMAND
             ${LCOV_PATH} ${Coverage_LCOV_ARGS} --gcov-tool ${GCOV_PATH} --ignore-errors unused,mismatch
