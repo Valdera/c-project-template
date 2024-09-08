@@ -175,26 +175,26 @@ function(setup_target_for_coverage_lcov)
     add_custom_target(
             ${Coverage_NAME}
             # Cleanup lcov
-            COMMAND ${LCOV_PATH} ${Coverage_LCOV_ARGS} --gcov-tool ${GCOV_PATH} --ignore-errors unused,mismatch
+            COMMAND ${LCOV_PATH} ${Coverage_LCOV_ARGS} --gcov-tool ${GCOV_PATH} --ignore-errors mismatch
             -directory . -b ${BASEDIR} --zerocounters
             # Create baseline to make sure untouched files show up in the report
-            COMMAND ${LCOV_PATH} ${Coverage_LCOV_ARGS} --gcov-tool ${GCOV_PATH} --ignore-errors unused,mismatch -c
+            COMMAND ${LCOV_PATH} ${Coverage_LCOV_ARGS} --gcov-tool ${GCOV_PATH} --ignore-errors mismatch -c
             -i -d . -b ${BASEDIR} -o ${Coverage_NAME}.base
             # Run tests
             COMMAND ${Coverage_EXECUTABLE} ${Coverage_EXECUTABLE_ARGS}
             # Capturing lcov counters and generating report
             COMMAND
-            ${LCOV_PATH} ${Coverage_LCOV_ARGS} --gcov-tool ${GCOV_PATH} --ignore-errors unused,mismatch
+            ${LCOV_PATH} ${Coverage_LCOV_ARGS} --gcov-tool ${GCOV_PATH} --ignore-errors mismatch
             --directory . -b ${BASEDIR} --capture --output-file
             ${Coverage_NAME}.capture
             # add baseline counters
             COMMAND
-            ${LCOV_PATH} ${Coverage_LCOV_ARGS} --gcov-tool ${GCOV_PATH} --ignore-errors unused,mismatch -a
+            ${LCOV_PATH} ${Coverage_LCOV_ARGS} --gcov-tool ${GCOV_PATH} --ignore-errors mismatch -a
             ${Coverage_NAME}.base -a ${Coverage_NAME}.capture --output-file
             ${Coverage_NAME}.total
             # filter collected data to final coverage report
             COMMAND
-            ${LCOV_PATH} ${Coverage_LCOV_ARGS} --gcov-tool ${GCOV_PATH} --ignore-errors unused,mismatch --remove
+            ${LCOV_PATH} ${Coverage_LCOV_ARGS} --gcov-tool ${GCOV_PATH} --ignore-errors mismatch --remove
             ${Coverage_NAME}.total ${LCOV_EXCLUDES} --output-file
             ${Coverage_NAME}.info
             # Generate HTML output
