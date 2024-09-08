@@ -8,6 +8,7 @@ install_tests: install_min
 
 install: install_min install_tests
 	sudo apt-get install git llvm pkg-config curl zip unzip tar python3-dev clang-format clang-tidy cppcheck iwyu
+	pip install gcovr=7.0
 
 install_pip:
 	pip install jinja2 Pygments cmake-format pre-commit
