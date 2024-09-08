@@ -14,7 +14,7 @@ jobs:
       - name: Install
         run: |
           make install
-          make install_tests
+          make install_test
           make install_conan
           make install_doc
       - name: Prepare

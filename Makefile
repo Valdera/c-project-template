@@ -3,7 +3,8 @@ all: prepare
 install_min:
 	sudo apt-get install gcc g++ cmake make doxygen
 
-install_tests: install_min
+install_test: install_min
+	echo "Install Test Dependencies"
 	pip install gcovr==7.0
 	sudo apt-get install lcov
 
@@ -14,6 +15,7 @@ install_pip:
 	pip install jinja2 Pygments cmake-format pre-commit
 
 install_doc: install_min
+	echo "Install Docs Dependencies"
 	sudo apt-get install doxygen
 	pip install jinja2 Pygments
 

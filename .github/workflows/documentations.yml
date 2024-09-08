@@ -31,5 +31,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          branch: pages
           build_dir: ./docs/html
           email: ''
