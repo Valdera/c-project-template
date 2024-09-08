@@ -13,10 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install
-        run: |
-          make install
-          make install_doc
-          make install_conan
+        run: make install
       - name: Prepare
         run: |
           make prepare

@@ -1,1 +1,30 @@
-HAT
+name: Ubuntu CI Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install
+        run: make install
+      - name: Prepare
+        run: |
+          make prepare
+      - name: Configure
+        run: |
+          cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=On
+      - name: Coverage
+        run: |
+          cmake --build build --config Debug --target coverage -j4
+      - name: Testing
+        run: |
+          cd build
+          cd tests
+          ctest -j 4
+          bash <(curl -s https://codecov.io/bash)
