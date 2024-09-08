@@ -20,10 +20,15 @@ add_subdirectory(apps)
 #################
 
 set(COVERAGE_EXCLUDES
+        "${PROJECT_SOURCE_DIR}/cmake/*"
+        "${PROJECT_SOURCE_DIR}/docs/*"
+        "${PROJECT_SOURCE_DIR}/external/*"
         "${PROJECT_SOURCE_DIR}/test/*"
         "${PROJECT_SOURCE_DIR}/build/*"
-        "/usr/include/*"
-        "/*/include"
+        "${PROJECT_SOURCE_DIR}/config/*"
+        "${PROJECT_SOURCE_DIR}/cmake-build-*/*"
+        "/*/include/*"
+        "/home/*/.conan2"
 )
 
 if (ENABLE_COVERAGE)

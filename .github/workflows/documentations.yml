@@ -12,18 +12,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: install
+      - name: Install
         run: |
           make install
           make install_conan
           make install_conan
-      - name: prepare
+      - name: Prepare
         run: |
           make prepare
-      - name: configure
+      - name: Configure
         run: |
           cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="Debug"
-      - name: building
+      - name: Building
         run: |
           cmake --build build --config Debug --target docs -j4
       - name: Deploy to GitHub Pages

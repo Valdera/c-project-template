@@ -11,21 +11,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: install
+      - name: Install
         run: |
           make install
           make install_conan
           make install_doc
-      - name: prepare
+      - name: Prepare
         run: |
           make prepare
-      - name: configure
+      - name: Configure
         run: |
           cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=On
-      - name: coverage
+      - name: Coverage
         run: |
           cmake --build build --config Debug --target coverage -j4
-      - name: testing
+      - name: Testing
         run: |
           cd build
           cd tests
