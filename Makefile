@@ -4,7 +4,7 @@ install_min:
 	sudo apt-get install gcc g++ cmake make doxygen
 
 install: install_min
-	sudo apt-get install git llvm pkg-config curl zip unzip tar python3-dev clang-format clang-tidy cppcheck iwyu &&
+	sudo apt-get install git llvm pkg-config curl zip unzip tar python3-dev clang-format clang-tidy cppcheck iwyu
 	pip install gcovr lcov
 
 install_pip:
