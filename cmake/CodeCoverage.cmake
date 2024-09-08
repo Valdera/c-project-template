@@ -199,7 +199,7 @@ function(setup_target_for_coverage_lcov)
             ${Coverage_NAME}.info
             # Generate HTML output
             COMMAND ${GENHTML_PATH} ${GENHTML_EXTRA_ARGS} ${Coverage_GENHTML_ARGS}
-            -o ${Coverage_NAME} ${Coverage_NAME}.info --ignore-errors unused,mismatch
+            -o ${Coverage_NAME} ${Coverage_NAME}.info
             # Set output files as GENERATED (will be removed on 'make clean')
             BYPRODUCTS ${Coverage_NAME}.base
             ${Coverage_NAME}.capture
