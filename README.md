@@ -2,11 +2,19 @@
 
 ![C++](https://img.shields.io/badge/C%2B%2B-20%2F23-blue)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Linux Build](https://github.com/Valdera/c-project-template/workflows/Ubuntu%20CI%20Test/badge.svg)
+[![codecov](https://codecov.io/gh/Valdera/c-project-template/branch/main/graph/badge.svg)](https://codecov.io/gh/Valdera/cpp-project-template)
 
 Clone this repository
 
 ```bash
 git clone --recursive git@github.com:Valdera/Maker.git
+```
+
+Initialize `pre-commit`
+
+```bash
+pre-commit install
 ```
 
 ## Software Requirements
@@ -92,7 +100,7 @@ cmake --build ./build --target
    Example:
 
    ```bash
-   git submodule add https://github.com/nlohmann/json.git external/json 
+   git submodule add https://github.com/nlohmann/json.git external/json
    ```
 
 2. Lists the dependency in the root `CMakeLists.txt`
@@ -104,7 +112,7 @@ cmake --build ./build --target
    Example:
 
    ```cmake
-   add_git_submodule(external/json)   
+   add_git_submodule(external/json)
    ```
 
 #### Using Fetch Content

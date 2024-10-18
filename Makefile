@@ -32,3 +32,6 @@ dependency:
 prepare:
 	rm -rf build
 	mkdir build
+
+graph:
+	cd build && cmake .. --graphviz=graph.dot && dot -Tpng graph.dot -o graph_deps.png
