@@ -1,4 +1,4 @@
-# C++ Project Template
+# CPP Solver
 
 ![C++](https://img.shields.io/badge/C%2B%2B-20%2F23-blue)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)

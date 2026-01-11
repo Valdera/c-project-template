@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.22)
 set(CMAKE_PROJECT_TOP_LEVEL_INCLUDES "${CMAKE_SOURCE_DIR}/cmake/ConanProvider.cmake")
 
 # Setup Project
-project("C++ Project Template" VERSION 1.0.0 LANGUAGES C CXX)
+project("solver" VERSION 1.0.0 LANGUAGES C CXX)
 
 ##########################
 # Global CMake variables #

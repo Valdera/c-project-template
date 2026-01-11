@@ -35,3 +35,6 @@ prepare:
 
 graph:
 	cd build && cmake .. --graphviz=graph.dot && dot -Tpng graph.dot -o graph_deps.png
+
+new-problem:
+	@bash tools/create_problem.sh

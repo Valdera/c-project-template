@@ -13,7 +13,6 @@ set(GoogleTest_FRAMEWORK_LIBRARY gtest_main gmock)
 ################
 
 add_subdirectory(libs)
-add_subdirectory(apps)
 
 #################
 # Code Coverage #
