@@ -88,54 +88,18 @@ void solve() {
     int n;
     cin >> n;
 
-    vector<ll> a(n), b(n);
-    for (int i = 0; i < n; i++) cin >> a[i];
-    for (int i = 0; i < n; i++) cin >> b[i];
-
-    // dp[i][p] = {max_score, min_score} after turn i with parity p
-    // p = 0: even number of blues, p = 1: odd number of blues
-    vector<vector<pair<ll, ll>>> dp(n + 1, vector<pair<ll, ll>>(2));
-
-    // Base case
-    dp[0][0] = {0, 0};           // 0 blues, score = 0
-    dp[0][1] = {-INF, INF};      // can't have odd blues at turn 0
-
+    set<int> distinct_beauties;
     for (int i = 0; i < n; i++) {
-        // Initialize next states
-        dp[i + 1][0] = {-INF, INF};
-        dp[i + 1][1] = {-INF, INF};
-
-        // From even parity (i, 0)
-        if (dp[i][0].first != -INF) {
-            ll max_score = dp[i][0].first;
-            ll min_score = dp[i][0].second;
-
-            // Choose red: k' = k - a[i], parity stays even
-            dp[i + 1][0].first = max(dp[i + 1][0].first, max_score - a[i]);
-            dp[i + 1][0].second = min(dp[i + 1][0].second, min_score - a[i]);
-
-            // Choose blue: k' = b[i] - k, parity becomes odd
-            dp[i + 1][1].first = max(dp[i + 1][1].first, b[i] - min_score);
-            dp[i + 1][1].second = min(dp[i + 1][1].second, b[i] - max_score);
-        }
-
-        // From odd parity (i, 1)
-        if (dp[i][1].first != -INF) {
-            ll max_score = dp[i][1].first;
-            ll min_score = dp[i][1].second;
-
-            // Choose red: k' = k - a[i], parity stays odd
-            dp[i + 1][1].first = max(dp[i + 1][1].first, max_score - a[i]);
-            dp[i + 1][1].second = min(dp[i + 1][1].second, min_score - a[i]);
-
-            // Choose blue: k' = b[i] - k, parity becomes even
-            dp[i + 1][0].first = max(dp[i + 1][0].first, b[i] - min_score);
-            dp[i + 1][0].second = min(dp[i + 1][0].second, b[i] - max_score);
-        }
+        int b;
+        cin >> b;
+        distinct_beauties.insert(b);
     }
 
-    ll ans = max(dp[n][0].first, dp[n][1].first);
-    cout << ans << "\n";
+    // Since we can cycle indefinitely and skip apples,
+    // we can eat apples in any strictly increasing order.
+    // The maximum number of apples we can eat is the number
+    // of distinct beauty values.
+    cout << distinct_beauties.size() << "\n";
 }
 
 // ============================================================================

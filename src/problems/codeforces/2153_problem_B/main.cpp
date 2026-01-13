@@ -85,57 +85,25 @@ void setup_io() {
 // ============================================================================
 
 void solve() {
-    int n;
-    cin >> n;
+    int x, y, z;
+    cin >> x >> y >> z;
 
-    vector<ll> a(n), b(n);
-    for (int i = 0; i < n; i++) cin >> a[i];
-    for (int i = 0; i < n; i++) cin >> b[i];
+    // For each bit position i:
+    // - If x[i] = 1 and y[i] = 1, then z[i] must be 1 (otherwise a[i]=1, b[i]=1, c[i]=1 contradicts a&c=z)
+    // - If x[i] = 1 and z[i] = 1, then y[i] must be 1 (otherwise a[i]=1, c[i]=1, b[i]=1 contradicts b&c=y)
+    // - If y[i] = 1 and z[i] = 1, then x[i] must be 1 (otherwise b[i]=1, c[i]=1, a[i]=1 contradicts a&b=x)
+    //
+    // In other words: if any two of x, y, z have a bit set, all three must have it set.
+    // This is equivalent to checking:
+    // - (x & y) must be a subset of z  =>  (x & y) & ~z == 0
+    // - (x & z) must be a subset of y  =>  (x & z) & ~y == 0
+    // - (y & z) must be a subset of x  =>  (y & z) & ~x == 0
 
-    // dp[i][p] = {max_score, min_score} after turn i with parity p
-    // p = 0: even number of blues, p = 1: odd number of blues
-    vector<vector<pair<ll, ll>>> dp(n + 1, vector<pair<ll, ll>>(2));
-
-    // Base case
-    dp[0][0] = {0, 0};           // 0 blues, score = 0
-    dp[0][1] = {-INF, INF};      // can't have odd blues at turn 0
-
-    for (int i = 0; i < n; i++) {
-        // Initialize next states
-        dp[i + 1][0] = {-INF, INF};
-        dp[i + 1][1] = {-INF, INF};
-
-        // From even parity (i, 0)
-        if (dp[i][0].first != -INF) {
-            ll max_score = dp[i][0].first;
-            ll min_score = dp[i][0].second;
-
-            // Choose red: k' = k - a[i], parity stays even
-            dp[i + 1][0].first = max(dp[i + 1][0].first, max_score - a[i]);
-            dp[i + 1][0].second = min(dp[i + 1][0].second, min_score - a[i]);
-
-            // Choose blue: k' = b[i] - k, parity becomes odd
-            dp[i + 1][1].first = max(dp[i + 1][1].first, b[i] - min_score);
-            dp[i + 1][1].second = min(dp[i + 1][1].second, b[i] - max_score);
-        }
-
-        // From odd parity (i, 1)
-        if (dp[i][1].first != -INF) {
-            ll max_score = dp[i][1].first;
-            ll min_score = dp[i][1].second;
-
-            // Choose red: k' = k - a[i], parity stays odd
-            dp[i + 1][1].first = max(dp[i + 1][1].first, max_score - a[i]);
-            dp[i + 1][1].second = min(dp[i + 1][1].second, min_score - a[i]);
-
-            // Choose blue: k' = b[i] - k, parity becomes even
-            dp[i + 1][0].first = max(dp[i + 1][0].first, b[i] - min_score);
-            dp[i + 1][0].second = min(dp[i + 1][0].second, b[i] - max_score);
-        }
+    if (((x & y) & ~z) != 0 || ((x & z) & ~y) != 0 || ((y & z) & ~x) != 0) {
+        cout << "NO\n";
+    } else {
+        cout << "YES\n";
     }
-
-    ll ans = max(dp[n][0].first, dp[n][1].first);
-    cout << ans << "\n";
 }
 
 // ============================================================================
