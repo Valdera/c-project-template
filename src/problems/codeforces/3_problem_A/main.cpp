@@ -95,55 +95,48 @@ void setup_io() {
 // ============================================================================
 
 void solve() {
-  int n, m;
-  cin >> n >> m;
+  string s, t;
+  cin >> s >> t;
 
-  vector<string> streets(n);
-  vector<map<char, int>> freq(n);
-  map<char, int> total_freq;
+  // Convert positions to coordinates
+  int x1 = s[0] - 'a';  // column (0-7)
+  int y1 = s[1] - '1';  // row (0-7)
+  int x2 = t[0] - 'a';
+  int y2 = t[1] - '1';
 
-  // Read streets and count character frequencies
-  for (int i = 0; i < n; i++) {
-    cin >> streets[i];
-    for (char c : streets[i]) {
-      freq[i][c]++;
-      total_freq[c]++;
+  // Calculate differences
+  int dx = x2 - x1;
+  int dy = y2 - y1;
+
+  // The minimum number of moves is the maximum of absolute differences
+  int moves = max(abs(dx), abs(dy));
+
+  cout << moves << "\n";
+
+  // Generate the move sequence
+  while (dx != 0 || dy != 0) {
+    string move = "";
+
+    // Horizontal component first
+    if (dx > 0) {
+      move += "R";
+      dx--;
+    } else if (dx < 0) {
+      move += "L";
+      dx++;
     }
+
+    // Vertical component second
+    if (dy > 0) {
+      move += "U";
+      dy--;
+    } else if (dy < 0) {
+      move += "D";
+      dy++;
+    }
+
+    cout << move << "\n";
   }
-
-  // For each street ℓ (the one whose order was lost)
-  for (int l = 0; l < n; l++) {
-    int k_max = m;
-    bool possible = true;
-
-    // For each character that appears in street ℓ
-    for (auto& [c, count_l] : freq[l]) {
-      // sum_except_l = total count of char c in all streets except ℓ
-      int sum_except_l = total_freq[c] - count_l;
-
-      if (sum_except_l == 0) {
-        // Cannot create even one copy of street ℓ
-        possible = false;
-        break;
-      }
-
-      // Constraint: (m - k) * sum_except_l >= count_l
-      // => k <= m - ceil(count_l / sum_except_l)
-      int ceil_div = (count_l + sum_except_l - 1) / sum_except_l;
-      int k_constraint = m - ceil_div;
-      k_max = min(k_max, k_constraint);
-    }
-
-    if (!possible || k_max < 0) {
-      cout << -1;
-    } else {
-      cout << k_max;
-    }
-
-    if (l < n - 1)
-      cout << " ";
-  }
-  cout << "\n";
 }
 
 // ============================================================================
