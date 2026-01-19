@@ -1,150 +1,103 @@
-#pragma GCC optimize("Ofast,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+/**
+ * αυτός που σκέφτεται αυτό που βλέπει
+ */
 
 #include <algorithm>
-#include <cmath>
-#include <cstring>
 #include <ctime>
-#include <iomanip>
 #include <iostream>
-#include <map>
-#include <queue>
-#include <set>
-#include <stack>
-#include <string>
+#include <iterator>
+#include <numeric>
 #include <vector>
 
 using namespace std;
 
-// Type shortcuts
-typedef long long ll;
-typedef unsigned long long ull;
-typedef long double ld;
-typedef pair<int, int> pii;
-typedef pair<ll, ll> pll;
-typedef vector<int> vi;
-typedef vector<ll> vll;
-typedef vector<pii> vpii;
-typedef vector<pll> vpll;
+#pragma GCC optimize("Ofast,unroll-loops")
 
-// Macros
-#define all(x) (x).begin(), (x).end()
-#define rall(x) (x).rbegin(), (x).rend()
-#define pb push_back
-#define mp make_pair
-#define fi first
-#define se second
-#define sz(x) ((int)(x).size())
+// ----------------------<SHORT>--------------------------
+#define ll long long int
+#define ld long double
+#define si set<long long int>
+#define vi vector<long long int>
+#define pii pair<long long int, long long int>
+#define vpi vector<pii>
+#define vpp vector<pair<long long int, pii>>
+#define mii map<long long int, long long int>
+#define mci map<char, long long int>
+#define mpi map<pii, long long int>
+#define spi set<pii>
+#define endl "\n"
+#define sz(x) ((long long int)x.size())
+#define all(p) p.begin(), p.end()
+#define que_max priority_queue<long long int>
+#define que_min priority_queue<long long int, vi, greater<long long int>>
+// ----------------------</SHORT>--------------------------
 
-// Common templates
-template<typename T> T gcd(T a, T b) { return b == 0 ? a : gcd(b, a % b); }
-template<typename T> T lcm(T a, T b) { return a / gcd(a, b) * b; }
-template<typename T> T mod_pow(T base, T exp, T mod) {
-    T result = 1;
-    while (exp > 0) {
-        if (exp % 2 == 1) result = (result * base) % mod;
-        base = (base * base) % mod;
-        exp /= 2;
-    }
-    return result;
+// ----------------------<CONST>--------------------------
+
+#define PI 3.1415926535897932384626433832795l
+
+constexpr int MAX_N = 1e5 + 5;
+constexpr ll MOD = 1e9 + 7;
+constexpr ll INF = 1e9;
+constexpr ld EPS = 1e-9;
+constexpr int N = 200005;
+
+// ----------------------</CONST>--------------------------
+
+// ----------------------<MATH>---------------------------
+template <typename T>
+T gcd(T a, T b) {
+  while (b) {
+    T temp = b;
+    b = a % b;
+    a = temp;
+  }
+  return a;
 }
 
-// Constants
-const ll MOD = 1e9 + 7;
-const ll INF = 1e18;
-const ld EPS = 1e-9;
-const int MAX_N = 2e5 + 5;
-
-// Debug
-#ifdef LOCAL
-#define debug(x) cerr << #x << " = " << (x) << endl
-#else
-#define debug(x)
-#endif
-
-// Fast I/O
-void fast_io() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
+template <typename T>
+T lcm(T a, T b) {
+  return (a * (b / gcd(a, b)));
 }
 
-// File I/O setup
-void setup_io() {
-#ifndef ONLINE_JUDGE
-    string input_path = string(SRC_PATH) + "/input.txt";
-    string output_path = string(SRC_PATH) + "/output.txt";
-
-    freopen(input_path.c_str(), "r", stdin);
-    freopen(output_path.c_str(), "w", stdout);
-#endif
-}
-
-// ============================================================================
-// Solution
-// ============================================================================
+// ----------------------</MATH>--------------------------
 
 void solve() {
-    vector<int> sticks(4);
-    for (int i = 0; i < 4; i++) {
-        cin >> sticks[i];
-    }
+  int Y, W;
+  cin >> Y >> W;
 
-    bool has_triangle = false;
-    bool has_segment = false;
+  // Dot needs to roll at least max(Y, W) to win
+  int minNeeded = max(Y, W);
 
-    // Try all 4 combinations of choosing 3 sticks
-    for (int skip = 0; skip < 4; skip++) {
-        vector<int> sides;
-        for (int i = 0; i < 4; i++) {
-            if (i != skip) {
-                sides.push_back(sticks[i]);
-            }
-        }
+  // Number of favorable outcomes (minNeeded, minNeeded+1, ..., 6)
+  int favorable = 6 - minNeeded + 1;
+  int total = 6;
 
-        int a = sides[0], b = sides[1], c = sides[2];
+  // Reduce the fraction
+  int g = gcd(favorable, total);
+  favorable /= g;
+  total /= g;
 
-        // Non-degenerate triangle: all strict inequalities
-        if (a + b > c && a + c > b && b + c > a) {
-            has_triangle = true;
-        }
-        // Degenerate triangle: at least one equality
-        else if (a + b == c || a + c == b || b + c == a) {
-            has_segment = true;
-        }
-    }
-
-    if (has_triangle) {
-        cout << "TRIANGLE\n";
-    } else if (has_segment) {
-        cout << "SEGMENT\n";
-    } else {
-        cout << "IMPOSSIBLE\n";
-    }
+  cout << favorable << "/" << total << endl;
 }
 
-// ============================================================================
-// Main
-// ============================================================================
-
-int main() {
-    fast_io();
-    setup_io();
-
-    clock_t start_time = clock();
-
-    int t = 1;
-    // cin >> t;  // Comment this line if single test case
-
-    while (t--) {
-        solve();
-    }
+int32_t main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+  cout.tie(nullptr);
 
 #ifndef ONLINE_JUDGE
-    clock_t end_time = clock();
-    cerr << "\nTime: " << fixed << setprecision(6)
-         << (double)(end_time - start_time) / CLOCKS_PER_SEC << " sec\n";
+  freopen(SRC_PATH "/input.txt", "r", stdin);
+  freopen(SRC_PATH "/output.txt", "w", stdout);
 #endif
 
-    return 0;
+  clock_t z = clock();
+  int t = 1;
+  // cin >> t;
+  while (t--)
+    solve();
+
+  cerr << "Run Time : " << (static_cast<double>(clock() - z) / CLOCKS_PER_SEC);
+
+  return 0;
 }
