@@ -116,13 +116,13 @@ void solve() {
   for (int i = 0; i < m && boxes_taken < n; i++) {
     ll matches_per_box = containers[i].first;
     ll available_boxes = containers[i].second;
+
     // Take as many boxes as possible from this container
     ll boxes_to_take = min(available_boxes, n - boxes_taken);
 
     total_matches += boxes_to_take * matches_per_box;
     boxes_taken += boxes_to_take;
   }
-
   cout << total_matches << "\n";
 }
 
