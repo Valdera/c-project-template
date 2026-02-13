@@ -64,36 +64,48 @@ const int MOD = 1e9 + 7;
 const int INF = 1e9;
 const ll LLINF = 1e18;
 
-void solve() {
-  int n, h, l;
-  cin >> n >> h >> l;
+struct CrewMember {
+  string name;
+  string status;
+  int order;
+  int priority;
 
-  vi a(n);
-  for (int i = 0; i < n; i++) {
-    cin >> a[i];
-  }
-
-  int minHL = min(h, l);
-  int maxHL = max(h, l);
-
-  // Count numbers that can be used for both row and column
-  int count_both = 0;
-  // Count numbers that can only be used for the larger dimension
-  int count_one = 0;
-
-  for (int i = 0; i < n; i++) {
-    if (a[i] <= minHL) {
-      count_both++;
-    } else if (a[i] <= maxHL) {
-      count_one++;
+  CrewMember(string n, string s, int o) : name(n), status(s), order(o) {
+    if (status == "rat") {
+      priority = 1;
+    } else if (status == "woman" || status == "child") {
+      priority = 2;
+    } else if (status == "man") {
+      priority = 3;
+    } else if (status == "captain") {
+      priority = 4;
     }
   }
-  // The maximum number of valid pairs is min(count_rows, count_cols)
-  // Because we need both a valid row and a valid column for each pair
-  int ans = min(count_rows, count_cols);
-  int ans = min(count_both, (count_both + count_one) / 2);
 
-  cout << ans << '\n';
+  bool operator<(const CrewMember& other) const {
+    if (priority != other.priority) {
+      return priority < other.priority;
+    }
+    return order < other.order;
+  }
+};
+
+void solve() {
+  int n;
+  cin >> n;
+
+  vector<CrewMember> crew;
+  for (int i = 0; i < n; i++) {
+    string name, status;
+    cin >> name >> status;
+    crew.pb(CrewMember(name, status, i));
+  }
+
+  sort(all(crew));
+
+  for (const auto& member : crew) {
+    cout << member.name << '\n';
+  }
 }
 
 int main() {
@@ -101,7 +113,7 @@ int main() {
   cin.tie(nullptr);
 
   int t = 1;
-  cin >> t;
+  // cin >> t;
 
   while (t--) {
     solve();
